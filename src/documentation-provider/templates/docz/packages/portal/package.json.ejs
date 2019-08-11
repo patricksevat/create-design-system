@@ -1,0 +1,29 @@
+{
+  "name": "<%= `@${templateConfig.name}/portal`%>",
+  "version": "1.0.0",
+  "description": "<%= `@${templateConfig.name} design system portal`%>",
+  "files": [
+  ],
+  "scripts": {
+    "start": "docz dev",
+    "build": "docz build"
+  },
+  "devDependencies": {
+    "docz": "^2.0.0-rc.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "scheduler": "0.14.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "linters": {
+      "./src/**/*.{js,ts,tsx,html,scss,md,mdx}": [
+        "yarn format",
+        "git add"
+      ]
+    }
+  },
+  "license": "MIT"
+}
