@@ -5,14 +5,19 @@
   "files": [
   ],
   "scripts": {
-    "start": "docz dev",
+    "copy": "ts-node ./scripts/copyMdxFromComponents.ts",
+    "start": "yarn copy && yarn docz:start",
+    "docz:start": "docz dev",
     "build": "docz build"
   },
   "devDependencies": {
     "docz": "^2.0.0-rc.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "scheduler": "0.14.0"
+    "scheduler": "0.14.0",
+    "glob-promise": "3.4.0",
+    "fs-extra": "^8.1.0",
+    "ts-node": "^8.3.0"
   },
   "publishConfig": {
     "access": "public"

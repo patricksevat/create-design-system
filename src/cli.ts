@@ -4,7 +4,7 @@ import changeCase from 'change-case'
 import ora from 'ora';
 
 import * as types from './types';
-import { copyCompiledTemplateFiles, copyComponentCompilerFiles } from './copy';
+import { copyTemplateFiles, copyFiles } from './copy';
 
 const aliases = {
   componentCompiler: ['component', 'c'],
@@ -19,18 +19,18 @@ export async function cli() {
     const options: types.ICliOptions = await prompt();
 
     const spinner = ora(`Creating general project files`).start();
-    await copyComponentCompilerFiles(options, 'project', true);
-    await copyCompiledTemplateFiles(options, 'project', true);
+    await copyFiles(options, 'project', true);
+    await copyTemplateFiles(options, 'project', true);
     spinner.succeed(`General project files created`);
 
     spinner.start(`Creating ${options.componentCompiler} files`);
-    await copyComponentCompilerFiles(options, 'component-compiler');
-    await copyCompiledTemplateFiles(options, 'component-compiler');
+    await copyFiles(options, 'component-compiler');
+    await copyTemplateFiles(options, 'component-compiler');
     spinner.succeed(`${options.componentCompiler} files created`);
 
     spinner.start(`Creating ${options.documentationProvider} files`);
-    await copyComponentCompilerFiles(options, 'documentation-provider');
-    await copyCompiledTemplateFiles(options, 'documentation-provider');
+    await copyFiles(options, 'documentation-provider');
+    await copyTemplateFiles(options, 'documentation-provider');
     spinner.succeed(`${options.documentationProvider} files created`);
 
     process.exit(0);

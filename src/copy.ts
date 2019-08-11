@@ -19,7 +19,7 @@ const globOptions = (compilerName, skipIgnore) => ({
 });
 
 // TODO refactor copy fns
-export async function copyComponentCompilerFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
+export async function copyFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
   try {
     const files = await getFilePaths(options, toolingType, 'copy', skipIgnore);
 
@@ -34,7 +34,7 @@ export async function copyComponentCompilerFiles(options: types.ICliOptions, too
   }
 }
 
-export async function copyCompiledTemplateFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
+export async function copyTemplateFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
   try {
     const files = await getFilePaths(options, toolingType, 'templates', skipIgnore);
 
@@ -65,7 +65,7 @@ function stripExtension(path: string): string {
   return path.replace('.ejs', '');
 }
 
-function getRelativePath(srcPath: string, pathSegmentToFilter: string, compilerName?: string) {
-  const regex = new RegExp(`.*${pathSegmentToFilter}(\/${compilerName ? compilerName + '\/' : ''})?(?<relative>.*)`);
+function getRelativePath(srcPath: string, pathSegmentToFilter: string, toolName?: string) {
+  const regex = new RegExp(`.*${pathSegmentToFilter}\/${toolName ? toolName + '\/' : ''}(?<relative>.*)`);
   return srcPath.match(regex).groups.relative;
 }
