@@ -1,0 +1,31 @@
+# <%= templateConfig.name %> Design System
+
+## Installation
+
+* Requires NodeJS >8
+* Requires Yarn
+
+* `$ yarn install`
+
+## Start developing components
+
+All components reside in the `./packages/components` folder.
+Navigate to this folder using `$ cd packages/components`.
+
+<% if (componentCompiler === 'stencil') {%>
+To start developing run `$ yarn start` in the components folder.
+This will open up a dev server with hot reloading enabled.
+Click on the `src` directory in your browser and then
+click on the component that you are working on.
+You should now see your component.
+<% } %>
+
+<% if (componentCompiler === 'stencil') {%>
+# Stencil
+
+Stencil is a compiler for building fast web apps using Web Components.
+
+Stencil combines the best concepts of the most popular frontend frameworks into a compile-time rather than run-time tool.  Stencil takes TypeScript, JSX, a tiny virtual DOM layer, efficient one-way data binding, an asynchronous rendering pipeline (similar to React Fiber), and lazy-loading out of the box, and generates 100% standards-based Web Components that run in any browser supporting the Custom Elements v1 spec.
+
+Stencil components are just Web Components, so they work in any major framework or with no framework at all.
+<% } %>

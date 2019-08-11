@@ -1,0 +1,41 @@
+# http://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+indent_style = tab
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+max_line_length = off
+end_of_line = lf
+block_comment_start = /*
+block_comment =  *
+block_comment_end = */
+
+[*.{md,markdown,mdx}]
+indent_style = ignore
+insert_final_newline = ignore
+trim_trailing_whitespace = ignore
+max_line_length = 120
+
+[{package.json,scsslint.yml}]
+indent_size = 2
+indent_style = space
+
+[{.DS_Store,{dist,nexus,node_modules,styleguide,submodules}/**}]
+charset = ignore
+indent_size = ignore
+indent_style = ignore
+insert_final_newline = ignore
+tab_width = ignore
+trim_trailing_whitespace = ignore
+
+[*.d.ts]
+charset = unset
+indent_size = unset
+indent_style = unset
+insert_final_newline = unset
+tab_width = unset
+trim_trailing_whitespace = unset

@@ -1,0 +1,44 @@
+{
+  "name": "<%= `@${templateConfig.name}/components`%>",
+  "version": "1.0.0",
+  "description": "<%= `@${templateConfig.name} design system components`%>",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "pre-commit": "run-p lint test && lint-staged",
+    "format": "prettier --write --config prettier.config.js \"src/**/*.{js,ts,tsx,html,scss,mdx,json}\" ",
+    "lint": "run-p lint:*",
+    "lint:typescript": "tslint -c tslint.json -p tsconfig.json",
+    "lint:editor": "cross-var eclint check $PWD/src/**/*.{ts,tsx}",
+    "lint:style": "stylelint \"src/**/*.scss\""
+  },
+  "dependencies": {
+    "@stencil/core": "^1.2.4",
+    "@stencil/sass": "^1.0.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "linters": {
+      "./src/**/*.{js,ts,tsx,html,scss,md,mdx}": [
+        "yarn format",
+        "git add"
+      ]
+    }
+  },
+  "license": "MIT"
+}
