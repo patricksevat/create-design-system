@@ -6,7 +6,8 @@
         "packages": [
         "packages/components",
         "packages/components/src/*",
-        "packages/portal"
+        "<%- documentationProvider === 'docz' ? 'packages/portal/.docz",' : 'packages/portal"' %>
+        <%- documentationProvider === 'docz' ? '"packages/portal"' : '' %>
         ]
     },
     "scripts": {
@@ -16,6 +17,9 @@
                 "pre-commit": "lerna run pre-commit --since"
             }
         }
+    },
+    "dependencies": {
+        "scheduler": "0.14.0"
     },
     "devDependencies": {
         "@commitlint/cli": "^7.5.2",
