@@ -1,14 +1,15 @@
 import ejs from 'ejs';
 import fse from 'fs-extra';
 import glob from 'glob-promise';
+import changeCase from 'change-case';
 
 import * as types from './types';
 
-const globOptions = (compilerName) => ({
+const globOptions = (compilerName, skipIgnore) => ({
   dot: true,
   nodir: true,
   ignore: Object.keys(types.ComponentCompiler).reduce((accumulator, key) => {
-    if (key !== compilerName) {
+    if (key !== compilerName && !skipIgnore) {
       accumulator.push(`${__dirname}/copy/${key}/**/*`);
       accumulator.push(`${__dirname}/templates/${key}/**/*`);
     }
@@ -17,11 +18,13 @@ const globOptions = (compilerName) => ({
   }, [])
 });
 
-export async function copyComponentCompilerFiles(options: types.ICliOptions) {
+// TODO refactor copy fns
+export async function copyFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
   try {
-    const files = await glob(`${__dirname}/copy/**/*`, globOptions(options.componentCompiler));
+    const files = await getFilePaths(options, toolingType, 'copy', skipIgnore);
+
     const promises = files.map((file) => {
-      const relativePath = getRelativePath(file, 'copy', options.componentCompiler);
+      const relativePath = getRelativePath(file, 'copy', !skipIgnore && options[changeCase.camel(toolingType)]);
       const outputPath = `${process.cwd()}/${relativePath}`;
       return fse.copy(file, outputPath)
     });
@@ -31,11 +34,12 @@ export async function copyComponentCompilerFiles(options: types.ICliOptions) {
   }
 }
 
-export async function copyCompiledTemplateFiles(options: types.ICliOptions) {
+export async function copyTemplateFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
   try {
-    const files = await glob(`${__dirname}/templates/**/*`, globOptions(options.componentCompiler));
+    const files = await getFilePaths(options, toolingType, 'templates', skipIgnore);
+
     const promises = files.map((file) => {
-      const relativePath = getRelativePath(file, 'templates', options.componentCompiler);
+      const relativePath = getRelativePath(file, 'templates', !skipIgnore && options[changeCase.camel(toolingType)]);
       const outputPath = `${process.cwd()}/${relativePath}`;
       return createFileFromTemplate(file, outputPath, options)
     });
@@ -43,6 +47,12 @@ export async function copyCompiledTemplateFiles(options: types.ICliOptions) {
   } catch (e) {
     return Promise.reject(e);
   }
+}
+
+function getFilePaths(options, toolingType, copyType, skipIgnore): Promise<string[]> {
+  const toolingName = changeCase.camel(toolingType);
+  const globPattern = `${__dirname}/${toolingType}/${copyType}/**/*`;
+  return glob(globPattern, globOptions(options[toolingName], skipIgnore));
 }
 
 async function createFileFromTemplate(templatePath: string, outputPath: string, options: types.ICliOptions) {
@@ -55,7 +65,7 @@ function stripExtension(path: string): string {
   return path.replace('.ejs', '');
 }
 
-function getRelativePath(srcPath: string, pathSegmentToFilter: string, compilerName: types.ComponentCompiler) {
-  const regex = new RegExp(`.*${pathSegmentToFilter}(\/${compilerName}\/)?(?<relative>.*)`);
+function getRelativePath(srcPath: string, pathSegmentToFilter: string, toolName?: string) {
+  const regex = new RegExp(`.*${pathSegmentToFilter}\/${toolName ? toolName + '\/' : ''}(?<relative>.*)`);
   return srcPath.match(regex).groups.relative;
 }
