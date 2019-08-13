@@ -17,7 +17,8 @@
     "react-dom": "^16.9.0",
     "glob-promise": "3.4.0",
     "fs-extra": "^8.1.0",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.3.0",
+    "scheduler": "^0.15.0"
   },
   "publishConfig": {
     "access": "public"
@@ -30,5 +31,10 @@
       ]
     }
   },
-  "license": "MIT"
+  "license": "MIT",
+  "workspaces": [
+  "../../../packages/**/*",
+  "../../packages/**/*"
+  ],
+  "private": true
 }
