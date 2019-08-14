@@ -1,0 +1,16 @@
+// For all options see https://www.gatsbyjs.org/docs/node-apis/
+const ExtraWatchWebpackPlugin = require('extra-watch-webpack-plugin');
+
+exports.onCreatePage = function () {
+  // TODO do some magic to add props table
+}
+
+exports.onCreateWebpackConfig = function ({ actions }) {
+  actions.setWebpackConfig({
+    plugins: [
+      new ExtraWatchWebpackPlugin({
+        files: ['../../components/dist/<%= templateConfig.name %>/*']
+      })
+    ]
+  })
+}

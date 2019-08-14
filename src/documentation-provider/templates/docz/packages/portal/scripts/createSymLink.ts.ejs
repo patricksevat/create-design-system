@@ -1,0 +1,41 @@
+import { promises } from 'fs';
+import path from 'path';
+import {argv} from 'yargs';
+
+const src = path.resolve(process.cwd(), path.join('..', 'components', 'dist'));
+const dest = path.resolve(process.cwd(), path.join('.docz', 'static', 'stencil'));
+const srcTestFile = path.resolve(dest, path.join('<%= templateConfig.name %>.js'));
+
+async function createSymLinkIfNecessary() {
+  try {
+    const symLinkExists = await checkSymlink();
+    // TODO check if components are already built
+    if (!symLinkExists) {
+      const symlinkType = argv.symlink || process.platform.startsWith('win') ? 'junction' : 'dir';
+      await promises.symlink(src, dest, symlinkType);
+      console.log('Symlink created');
+    } else {
+      console.log('Symlink already exists');
+    }
+
+    return;
+
+  } catch (e) {
+    console.log('error creating symlink');
+    console.error(e);
+    throw e;
+  }
+
+}
+
+async function checkSymlink() {
+  try {
+    await promises.access(srcTestFile);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+createSymLinkIfNecessary()
+.then(() => process.exit(0), () => process.exit(1));

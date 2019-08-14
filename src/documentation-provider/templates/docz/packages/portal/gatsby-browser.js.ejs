@@ -1,8 +1,3 @@
 // gatsby.browser.js
 
-import { applyPolyfills, defineCustomElements } from '@<%= templateConfig.name %>/components/loader';
 import '@<%= templateConfig.name %>/components/dist/<%= templateConfig.name %>/<%= templateConfig.name %>.css';
-
-applyPolyfills().then(() => {
-	defineCustomElements(window);
-});
