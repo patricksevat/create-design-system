@@ -1,6 +1,9 @@
 import { promises } from 'fs';
 import path from 'path';
 import {argv} from 'yargs';
+import glob from 'glob-promise';
+
+const NAME = '<%= templateConfig.name %>';
 
 const src = path.resolve(process.cwd(), path.join('..', 'components', 'dist'));
 const dest = path.resolve(process.cwd(), path.join('.docz', 'static', 'stencil'));
@@ -26,6 +29,25 @@ async function createSymLinkIfNecessary() {
     throw e;
   }
 
+}
+
+async function createComponentImports() {
+  const files = await glob(`${src}/collection/**/*.js`);
+  const regex = /.*\/packages(?<capture>\/.*)/;
+  const importStrings = files.map((filePath) => {
+    const matches = filePath.match(regex);
+    return `import '@${NAME}${matches.groups.capture};`;
+  });
+
+  const gatsbyBrowserPath = 'gatsby-browser.js';
+
+  const currentContents = await fsPromises.readFile(gatsbyBrowserPath);
+
+  for (const expression of importStrings) {
+    if (!currentContents.includes(expression)) {
+      await fsPromises.appendFile(gatsbyBrowserPath, `\n${expression}`)
+    }
+  }
 }
 
 async function checkSymlink() {
