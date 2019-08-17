@@ -9,7 +9,8 @@
 
 ### Eww, dude, that's nasty
 * Had to overwrite `"scheduler": "^0.15.0"` to `portal/package.json` (https://github.com/pedronauck/docz/issues/1000)
-
+* In order to get the HMR in docz working when stencil --dev updates the bundle I had to create an artificial import for all components in gatsby.browser.js (see createSymLink.ts.ejs)
+❗ Only needed if you want to dev in portal, will increase bundle size (but not in prod)
 ### 🤮🤮🤮
 * Adding the `allow-scripts` value to the `<iframe sandbox>` attribute in 
 `portal/src/gatsby-theme-docz/components/Playground/IframeWrapper.js`.
