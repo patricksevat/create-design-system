@@ -4,15 +4,15 @@
 
 Run one of these commands:
 
-`yarn create design-system`
+`yarn create design-system-cli`
 
 OR
 
-`npm init design-system`
+`npm init design-system-cli`
 
 OR
 
-`npx create-design-system`
+`npx create-design-system-cli`
 
 ## Deploying
 
