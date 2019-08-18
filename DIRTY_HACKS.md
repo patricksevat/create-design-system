@@ -14,6 +14,8 @@
 ### 🤮🤮🤮
 * Adding the `allow-scripts` value to the `<iframe sandbox>` attribute in 
 `portal/src/gatsby-theme-docz/components/Playground/IframeWrapper.js`.
+* Overwriting `gatsby-theme-docz/src/Header/index.js`, `gatsby-theme-docz/src/NavLink/index.js`, see [#985](https://github.com/pedronauck/docz/issues/985)
+    * Adding `@emotion/core` and `ramda` packages because they are needed in these shadowed components
 
 ❗❗❗ This is [STRONGLY DISCOURAGED](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe#attr-sandbox). 
 If you have any user generated content in your .mdx files, **YOU SHOULD NOT USE THIS SOLUTION 🚨** ❗❗❗
