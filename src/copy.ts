@@ -10,22 +10,26 @@ const globOptions = (compilerName, skipIgnore) => ({
   nodir: true,
   ignore: Object.keys(types.ComponentCompiler).reduce((accumulator, key) => {
     if (key !== compilerName && !skipIgnore) {
-      accumulator.push(`${__dirname}/copy/${key}/**/*`);
-      accumulator.push(`${__dirname}/templates/${key}/**/*`);
+      accumulator.push(`${__dirname}/${key}/**/*`);
+      // accumulator.push(`${__dirname}/templates/${key}/**/*`);
     }
 
     return accumulator;
   }, [])
 });
 
-// TODO refactor copy fns
 export async function copyFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
   try {
-    const files = await getFilePaths(options, toolingType, 'copy', skipIgnore);
+    const files = await getFilePaths(options, toolingType, skipIgnore);
 
     const promises = files.map((file) => {
-      const relativePath = getRelativePath(file, 'copy', !skipIgnore && options[changeCase.camel(toolingType)]);
+      const relativePath = getRelativePath(file, !skipIgnore && options[changeCase.camel(toolingType)]);
       const outputPath = `${process.cwd()}/${relativePath}`;
+
+      if (file.includes('.ejs')) {
+        return createFileFromTemplate(file, outputPath, options)
+      }
+
       return fse.copy(file, outputPath)
     });
     return Promise.all(promises);
@@ -34,24 +38,9 @@ export async function copyFiles(options: types.ICliOptions, toolingType: string,
   }
 }
 
-export async function copyTemplateFiles(options: types.ICliOptions, toolingType: string, skipIgnore?: boolean) {
-  try {
-    const files = await getFilePaths(options, toolingType, 'templates', skipIgnore);
-
-    const promises = files.map((file) => {
-      const relativePath = getRelativePath(file, 'templates', !skipIgnore && options[changeCase.camel(toolingType)]);
-      const outputPath = `${process.cwd()}/${relativePath}`;
-      return createFileFromTemplate(file, outputPath, options)
-    });
-    return Promise.all(promises);
-  } catch (e) {
-    return Promise.reject(e);
-  }
-}
-
-function getFilePaths(options, toolingType, copyType, skipIgnore): Promise<string[]> {
+function getFilePaths(options, toolingType, skipIgnore): Promise<string[]> {
   const toolingName = changeCase.camel(toolingType);
-  const globPattern = `${__dirname}/${toolingType}/${copyType}/**/*`;
+  const globPattern = `${__dirname}/${toolingType}/**/*`;
   return glob(globPattern, globOptions(options[toolingName], skipIgnore));
 }
 
@@ -65,7 +54,7 @@ function stripExtension(path: string): string {
   return path.replace('.ejs', '');
 }
 
-function getRelativePath(srcPath: string, pathSegmentToFilter: string, toolName?: string) {
-  const regex = new RegExp(`.*${pathSegmentToFilter}\/${toolName ? toolName + '\/' : ''}(?<relative>.*)`);
+function getRelativePath(srcPath: string, toolName?: string) {
+  const regex = new RegExp(`.*\/${toolName ? toolName + '\/' : ''}(?<relative>.*)`);
   return srcPath.match(regex).groups.relative;
 }
