@@ -5,10 +5,15 @@
   "files": [
   ],
   "scripts": {
-    "copy": "ts-node ./scripts/copyMdxFromComponents.ts && ts-node ./scripts/createSymLink.ts",
+    "copy": "yarn copy:mdx && yarn copy:components",
+    "copy:mdx": "ts-node ./scripts/copyMdxFromComponents.ts",
+    "copy:components": "ts-node ./scripts/createSymLink.ts",
     "start": "yarn copy && yarn docz:start",
     "docz:start": "docz dev",
-    "build": "docz build"
+    "docz:build": "docz build",
+    "build:portal": "yarn build:prepare && yarn build:install && yarn docz:build",
+    "build:prepare": "yarn copy --build",
+    "build:install": "yarn install"
   },
   "devDependencies": {
     "docz": "^2.0.0-rc.1",
@@ -18,11 +23,15 @@
     "glob-promise": "3.4.0",
     "fs-extra": "^8.1.0",
     "ts-node": "^8.3.0",
+    "npm-run-all": "^4.1.5",
     "extra-watch-webpack-plugin": "1.0.3",
     "yargs": "13.3.0"
   },
   "dependencies": {
-    "scheduler": "^0.15.0"
+    "ramda": "^0.26.1",
+    "scheduler": "^0.15.0",
+    "@emotion/core": "^10.0.16",
+    "gatsby-theme-docz": "^2.0.0-rc.1"
   },
   "publishConfig": {
     "access": "public"

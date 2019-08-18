@@ -1,5 +1,4 @@
-import { promises as fsPromises } from 'fs';
-import { ensureDir } from 'fs-extra';
+import { ensureSymlink, remove, readFile, readdir, appendFile, access, copy } from 'fs-extra';
 import path from 'path';
 import {argv} from 'yargs';
 import glob from 'glob-promise';
@@ -7,18 +6,17 @@ import glob from 'glob-promise';
 const NAME = '<%= templateConfig.name %>';
 
 const src = path.resolve(process.cwd(), path.join('..', 'components', 'dist'));
-const ensureDirPath = path.resolve(process.cwd(), path.join('.docz', 'static'));
+const staticDir = path.resolve(process.cwd(), path.join('.docz', 'static'));
 const dest = path.resolve(process.cwd(), path.join('.docz', 'static', 'stencil'));
 const srcTestFile = path.resolve(dest, path.join('<%= templateConfig.name %>.js'));
 
 async function createSymLinkIfNecessary() {
   try {
-    const symLinkExists = await checkSymlink();
+    const symLinkExists = await checkDestDir();
     // TODO check if components are already built
     if (!symLinkExists) {
       const symlinkType = argv.symlink || process.platform.startsWith('win') ? 'junction' : 'dir';
-      await ensureDir(ensureDirPath);
-      await fsPromises.symlink(src, dest, symlinkType);
+      await ensureSymlink(src, dest, symlinkType);
       console.log('Symlink created');
     } else {
       console.log('Symlink already exists');
@@ -31,37 +29,84 @@ async function createSymLinkIfNecessary() {
     console.error(e);
     throw e;
   }
-
 }
 
-async function createComponentImports() {
-  const files = await glob(`${src}/collection/**/*.js`);
-  const regex = /.*\/packages(?<capture>\/.*)/;
-  const importStrings = files.map((filePath) => {
-    const matches = filePath.match(regex);
-    return `import '@${NAME}${matches.groups.capture}';`;
-  });
-
-  const gatsbyBrowserPath = 'gatsby-browser.js';
-
-  const currentContents = await fsPromises.readFile(gatsbyBrowserPath);
-
-  for (const expression of importStrings) {
-    if (!currentContents.includes(expression)) {
-      await fsPromises.appendFile(gatsbyBrowserPath, `\n${expression}`)
-    }
+async function copyComponents() {
+  try {
+    await copy(src, dest);
+  } catch (e) {
+    throw e;
   }
 }
 
-async function checkSymlink() {
+async function createComponentImports() {
   try {
-    await fsPromises.access(srcTestFile);
+    if (argv.build) {
+      return;
+    }
+
+    const files = await glob(`${src}/collection/**/*.js`);
+    const regex = /.*\/packages(?<capture>\/.*)/;
+    const importStrings = files.map((filePath) => {
+      const matches = filePath.match(regex);
+      return `import '@${NAME}${matches.groups.capture}';`;
+    });
+
+    const gatsbyBrowserPath = 'gatsby-browser.js';
+
+    const currentContents = await readFile(gatsbyBrowserPath);
+
+    for (const expression of importStrings) {
+      if (!currentContents.includes(expression)) {
+        await appendFile(gatsbyBrowserPath, `\n${expression}`)
+      }
+    }
+  } catch (e) {
+    throw e;
+  }
+}
+
+async function checkDestDir() {
+  try {
+    await access(srcTestFile);
     return true;
   } catch (e) {
     return false;
   }
 }
 
-createSymLinkIfNecessary()
+async function cleanDestDirIfNecessary() {
+  try {
+    let cleanDestDir = false;
+
+    const exists = await checkDestDir();
+    if (exists) {
+      const dirEntries = await readdir(staticDir, { withFileTypes: true });
+      const stencilDir = dirEntries.find((dirEntry) => dirEntry.name === 'stencil');
+      const isSymlink = stencilDir.isSymbolicLink();
+
+      if ((isSymlink && argv.build) || (!isSymlink && !argv.build)) {
+        cleanDestDir = true;
+      }
+    }
+
+    if (cleanDestDir) {
+      await remove(dest);
+    }
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+
+}
+
+cleanDestDirIfNecessary()
+.then(() => {
+  if (argv.build) {
+    return copyComponents();
+  }
+
+  return createSymLinkIfNecessary();
+})
 .then(createComponentImports)
 .then(() => process.exit(0), () => process.exit(1));
