@@ -1,10 +1,9 @@
 {
-  "name": "@pmcs/create-design-system",
+  "name": "create-design-system",
   "description": "A CLI to set up a design system including documentation, testing and linting",
   "version": "0.0.1-alpha.1",
-  "main": "src/index.ts",
+  "main": "src/cli.ts",
   "bin": {
-    "@pmcs/create-design-system": "bin/create-design-system.js",
     "create-design-system": "bin/create-design-system.js"
   },
   "scripts": {
@@ -24,8 +23,11 @@
   },
   "keywords": [
     "CLI",
-    "design system"
+    "design system",
+    "stencil",
+    "docz"
   ],
+  "homepage": "https://github.com/patricksevat/create-design-system",
   "dependencies": {
     "ansi-colors": "^4.1.1",
     "change-case": "^3.1.0",
@@ -36,5 +38,9 @@
     "ora": "^3.4.0",
     "ts-node": "^8.3.0",
     "yargs": "^13.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patricksevat/create-design-system"
   }
 }
