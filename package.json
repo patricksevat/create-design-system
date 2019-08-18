@@ -1,7 +1,7 @@
 {
   "name": "create-design-system-cli",
   "description": "A CLI to set up a design system including documentation, testing and linting",
-  "version": "0.0.1-alpha.5",
+  "version": "0.0.1-alpha.7",
   "main": "src/cli.ts",
   "bin": {
     "create-design-system-cli": "bin/create-design-system"
@@ -44,5 +44,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/patricksevat/create-design-system"
-  }
+  },
+  "files": [
+    "bin/*",
+    "src/**/*"
+  ]
 }
