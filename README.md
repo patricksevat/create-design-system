@@ -10,6 +10,10 @@ OR
 
 `npm init design-system`
 
+OR
+
+`npx create-design-system`
+
 ## Deploying
 
 ### Docz
