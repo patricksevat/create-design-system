@@ -44,6 +44,7 @@
     "url": "https://github.com/patricksevat/create-design-system"
   },
   "files": [
+    "/tsconfig.json",
     "bin/",
     "src/"
   ]
