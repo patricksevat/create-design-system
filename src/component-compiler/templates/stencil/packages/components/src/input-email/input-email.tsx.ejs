@@ -1,0 +1,52 @@
+import { Component, h, Host, State, Prop } from '@stencil/core';
+
+@Component({
+  shadow: true,
+  styleUrl: './input-email.scss',
+  tag: '<%= templateConfig.prefix %>-input-email',
+})
+export class FooInputEmail {
+  value: string = '';
+
+  @Prop()
+  label: string = 'Email address';
+
+  @State()
+  errorMsg: string = '';
+
+  onChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.value = input.value;
+    this.validate();
+  }
+
+  validate() {
+    if (!this.value.includes('@')) {
+      this.errorMsg = 'Email must contain @';
+    } else if (this.errorMsg !== '') {
+      this.errorMsg = '';
+    }
+  }
+
+  protected render() {
+    return (
+      <Host>
+        <label>
+          <span class="foo-input-email__label">
+              { this.label }
+          </span>
+        <input
+          class='foo-input-email'
+          type="email"
+          onChange={this.onChange.bind(this)}
+        >
+        </input>
+        </label>
+        {this.errorMsg &&
+        <span class="foo-input-email__error">
+            { this.errorMsg }
+        </span>}
+      </Host>
+    );
+  }
+}

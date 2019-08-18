@@ -12,18 +12,18 @@ export interface ICliOptions {
 
 export enum ComponentCompiler {
   stencil = "stencil",
-  svelte = "svelte",
-  litElement = "litElement",
-  polymer = "polymer",
+  // svelte = "svelte",
+  // litElement = "litElement",
+  // polymer = "polymer",
 }
 
 export enum DocumentationProvider {
   docz = "docz",
-  storybook = "storybook",
+  // storybook = "storybook",
 }
 
 export enum TestingFramework {
-  wdio = "webdriverIO",
+  // wdio = "webdriverIO",
   jest = "Jest",
-  cypress = "cypress",
+  // cypress = "cypress",
 }

@@ -58,7 +58,7 @@ async function prompt(): Promise<types.ICliOptions> {
       const answer = await enquirer.prompt({
         type: 'select',
         name: key,
-        message: `Please pick a ${changeCase.noCase(key)}`,
+        message: `Please pick a ${changeCase.noCase(key)}. In pre release choices are limited, sorry!`,
         choices: Object.values(types[pascalKey]) as string[],
       });
 
