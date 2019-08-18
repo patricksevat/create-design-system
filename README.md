@@ -23,7 +23,12 @@ https://stenciljs.com/docs/distribution#using-your-component-in-a-framework
 # TODO
 
 * TSlint
+    * Stencil lint
+* editorconfig for src
 * husky
 * prettier
 * cross-os / cross-env
-* .eslinrc.js copy in docz
+* wdio
+* wdio visual comparison
+* wdio a11y axe
+* testing the generated code
