@@ -1,10 +1,10 @@
 {
   "name": "create-design-system-cli",
   "description": "A CLI to set up a design system including documentation, testing and linting",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "main": "src/cli.ts",
   "bin": {
-    "create-design-system": "bin/create-design-system.js"
+    "create-design-system": "bin/create-design-system"
   },
   "scripts": {
     "clean": "rm -rf ./tmp",
