@@ -4,7 +4,7 @@
   "version": "0.0.1-alpha.4",
   "main": "src/cli.ts",
   "bin": {
-    "create-design-system": "bin/create-design-system"
+    "create-design-system-cli": "bin/create-design-system"
   },
   "scripts": {
     "clean": "rm -rf ./tmp",
