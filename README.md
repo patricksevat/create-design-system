@@ -1,18 +1,15 @@
 # Create-design-system
 
-## Usage
+## General usage
 
-Run one of these commands:
+1. Create a new folder (for example `my-design-system`):
+    `$ mkdir my-design-system`
+2. Run this command and answers the prompts: `npx create-design-system-cli`
+3. Check the develop flow for your tools of choice
 
-`yarn create design-system-cli`
-
-OR
-
-`npm init design-system-cli`
-
-OR
-
-`npx create-design-system-cli`
+| Tool combination | Resources | 
+|---|---|
+| Stencil / Docz / WDIO | [Documentation](/resources/stencil-docz-wdio.md)
 
 ## Deploying
 
@@ -37,3 +34,4 @@ https://stenciljs.com/docs/distribution#using-your-component-in-a-framework
 * wdio a11y axe
 * Make Docz look nice
 * Create production build (strip dynamic imports!)
+* Create `packages/portal` `yarn start --no-sym-link` option
