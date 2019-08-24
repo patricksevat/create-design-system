@@ -6,8 +6,8 @@
   ],
   "scripts": {
     "copy": "yarn copy:mdx && yarn copy:components",
-    "copy:mdx": "ts-node ./scripts/copyMdxFromComponents.ts",
-    "copy:components": "ts-node ./scripts/createSymLink.ts",
+    "copy:mdx": "ts-node ./scripts/copyMdx.ts",
+    "copy:components": "ts-node ./scripts/copyDist.ts",
     "start": "yarn copy && yarn docz:start",
     "docz:start": "docz dev",
     "docz:build": "docz build",

@@ -1,0 +1,77 @@
+import path from 'path';
+import { remove, readFile, readdir, appendFile } from 'fs-extra';
+import {argv} from 'yargs';
+import glob from 'glob-promise';
+
+import { checkPathExists, copyDir, createSymlink } from './utils'
+
+const NAME = '<%= templateConfig.name %>';
+
+const src = path.resolve(process.cwd(), path.join('..', 'components', 'dist'));
+const staticDir = path.resolve(process.cwd(), path.join('.docz', 'static'));
+const dest = path.resolve(process.cwd(), path.join('.docz', 'static', 'stencil'));
+const srcTestFile = path.resolve(dest, path.join('<%= templateConfig.name %>.js'));
+
+
+async function cleanDestDirIfNecessary() {
+  try {
+    let cleanDestDir = false;
+
+    const exists = await checkPathExists(srcTestFile);
+    if (exists) {
+      const dirEntries = await readdir(staticDir, { withFileTypes: true });
+      const stencilDir = dirEntries.find((dirEntry) => dirEntry.name === 'stencil');
+      const isSymlink = stencilDir && stencilDir.isSymbolicLink();
+
+      if ((isSymlink && argv.build) || (!isSymlink && !argv.build)) {
+        cleanDestDir = true;
+      }
+    }
+
+    if (cleanDestDir) {
+      await remove(dest);
+    }
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
+
+}
+
+async function createComponentImports() {
+  try {
+    if (argv.build) {
+      return;
+    }
+
+    const files = await glob(`${src}/collection/**/*.js`);
+    const regex = /.*\/packages(?<capture>\/.*)/;
+    const importStrings = files.map((filePath) => {
+      const matches = filePath.match(regex);
+      return `import '@${NAME}${matches.groups.capture}';`;
+    });
+
+    const gatsbyBrowserPath = 'gatsby-browser.js';
+
+    const currentContents = await readFile(gatsbyBrowserPath);
+
+    for (const expression of importStrings) {
+      if (!currentContents.includes(expression)) {
+        await appendFile(gatsbyBrowserPath, `\n${expression}`)
+      }
+    }
+  } catch (e) {
+    throw e;
+  }
+}
+
+cleanDestDirIfNecessary()
+.then(() => {
+  if (argv.build) {
+    return copyDir(src, dest);
+  }
+
+  return createSymlink(src, dest);
+})
+.then(createComponentImports)
+.then(() => process.exit(0), () => process.exit(1));

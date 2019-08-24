@@ -18,7 +18,8 @@ async function executeTest() {
 
     spinner.succeed().start('Running yarn install in tmp folder');
     await asyncExec('yarn', {
-      cwd: path.resolve(process.cwd(), path.join('tmp'))
+      cwd: path.resolve(process.cwd(), path.join('tmp')),
+      maxBuffer: 1024 * 1024 * 5
     });
 
     spinner.succeed('Running yarn build in packages/components');
@@ -26,7 +27,7 @@ async function executeTest() {
       cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
     });
 
-    spinner.succeed().start('Running yarn dev in packages/portal');
+    spinner.succeed().start('Running yarn start in packages/portal');
     await asyncExec('yarn start', {
       cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'portal')),
       killMatcher: (data) => data.match(/You can now view .* in the browser/)

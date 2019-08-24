@@ -55,6 +55,6 @@ function stripExtension(path: string): string {
 }
 
 function getRelativePath(srcPath: string, toolName?: string) {
-  const regex = new RegExp(`.*\/${toolName ? toolName + '\/' : ''}(?<relative>.*)`);
-  return srcPath.match(regex).groups.relative;
+  const regex = new RegExp(`.*\/${toolName ? toolName + '\/' : ''}(.*)`);
+  return srcPath.match(regex)[1];
 }

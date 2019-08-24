@@ -35,4 +35,5 @@ https://stenciljs.com/docs/distribution#using-your-component-in-a-framework
 * wdio
 * wdio visual comparison
 * wdio a11y axe
-* testing the generated code
+* Make Docz look nice
+* Create production build (strip dynamic imports!)
