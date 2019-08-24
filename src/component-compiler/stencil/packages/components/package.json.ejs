@@ -16,8 +16,8 @@
   "scripts": {
     "build": "stencil build --docs-json",
     "start": "stencil build --dev --watch --serve --docs-json docs/components.json",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
+    "test": "stencil test --spec",
+    "test.watch": "stencil test --spec --watchAll",
     "pre-commit": "run-p lint test && lint-staged",
     "format": "prettier --write --config prettier.config.js \"src/**/*.{js,ts,tsx,html,scss,mdx,json}\" ",
     "lint": "run-p lint:*",
