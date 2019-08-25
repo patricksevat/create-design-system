@@ -12,7 +12,7 @@ const aliases = {
   testingFramework: ['test', 't'],
 };
 
-yargs.alias(aliases);
+yargs.alias(Object.assign({}, aliases, { name: ['n'], prefix: ['p'] } ));
 
 export async function cli() {
   try {
@@ -48,23 +48,28 @@ function checkValue(value) {
 
 async function prompt(): Promise<types.ICliOptions> {
   const options: Record<string, any> = {};
+  const { name, prefix } = yargs.argv;
 
-  options.templateConfig = await enquirer.prompt([{
-    type: 'input',
-    name: 'name',
-    message: 'What\'s the package.json name of your project?',
-    format: changeCase.paramCase,
-    validate: checkValue,
-  }, {
-    type: 'input',
-    name: 'prefix',
-    message: 'Prefix / short name for your components. Will be used to prefix your Web Components: <foo-button>',
-    format: changeCase.paramCase,
-    validate: checkValue,
-  }]);
+  if (!name || !prefix) {
+		options.templateConfig = await enquirer.prompt([{
+			type: 'input',
+			name: 'name',
+			message: 'What\'s the package.json name of your project?',
+			format: changeCase.paramCase,
+			validate: checkValue,
+		}, {
+			type: 'input',
+			name: 'prefix',
+			message: 'Prefix / short name for your components. Will be used to prefix your Web Components: <foo-button>',
+			format: changeCase.paramCase,
+			validate: checkValue,
+		}]);
+	} else {
+  	options.templateConfig = { name, prefix };
+	}
 
-  options.templateConfig.name = changeCase.camelCase(options.templateConfig.name);
-  options.templateConfig.prefixPascalCase = changeCase.pascalCase(options.templateConfig.prefix);
+
+	options.templateConfig.prefixPascalCase = changeCase.pascalCase(options.templateConfig.prefix);
 
   for (const key of Object.keys(aliases)) {
     const pascalKey = changeCase.pascalCase(key);

@@ -12,7 +12,7 @@ async function executeTest() {
     await fsExtra.ensureDir('./tmp');
 
     spinner.succeed().start('Executing bin/design-system');
-    await asyncExec('../bin/design-system -c stencil -d docz -t jest', {
+    await asyncExec('../bin/design-system -c stencil -d docz -t jest -n foo-ds -p foo', {
       cwd: path.resolve(process.cwd(), path.join('tmp')),
     });
 
@@ -22,10 +22,20 @@ async function executeTest() {
       maxBuffer: 1024 * 1024 * 5
     });
 
-    spinner.succeed('Running yarn build in packages/components');
+    spinner.succeed().start('Running yarn build in packages/components');
     await asyncExec('yarn build', {
       cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
     });
+
+		spinner.succeed().start('Running yarn test in packages/components');
+		await asyncExec('yarn test', {
+			cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
+		});
+
+		spinner.succeed().start('Running yarn test:e2e in packages/components');
+		await asyncExec('yarn test', {
+			cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
+		});
 
     spinner.succeed().start('Running yarn start in packages/portal');
     await asyncExec('yarn start', {

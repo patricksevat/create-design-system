@@ -1,4 +1,4 @@
-import { Component, h, Host, State, Prop } from '@stencil/core';
+import { Component, h, Host, State, Prop, Watch } from '@stencil/core';
 
 @Component({
   shadow: true,
@@ -6,6 +6,7 @@ import { Component, h, Host, State, Prop } from '@stencil/core';
   tag: '<%= templateConfig.prefix %>-input-email',
 })
 export class FooInputEmail {
+  @Prop()
   value: string = '';
 
   @Prop()
@@ -20,11 +21,18 @@ export class FooInputEmail {
     this.validate();
   }
 
+  @Watch('value')
   validate() {
     if (!this.value.includes('@')) {
       this.errorMsg = 'Email must contain @';
     } else if (this.errorMsg !== '') {
       this.errorMsg = '';
+    }
+  }
+
+  componentDidLoad() {
+    if (this.value) {
+      this.validate()
     }
   }
 

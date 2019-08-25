@@ -3,7 +3,7 @@ import { <%= templateConfig.prefixPascalCase %>InputEmail } from '../input-email
 
 describe('<%= templateConfig.prefix %>InputEmail functionality', () => {
 	it('should validate correctly', async () => {
-		const instance = new <%= templateConfig.prefix %>InputEmail();
+		const instance = new <%= templateConfig.prefixPascalCase %>InputEmail();
 
 		instance.value = 'baz';
 		await instance.validate();
@@ -16,7 +16,7 @@ describe('<%= templateConfig.prefix %>InputEmail functionality', () => {
 
 	it('should render the error only when there is an error', async () => {
 		const page = await newSpecPage({
-			components: [<%= templateConfig.prefix %>InputEmail],
+			components: [<%= templateConfig.prefixPascalCase %>InputEmail],
 			html: `<<%= templateConfig.prefix %>-input-email></<%= templateConfig.prefix %>-input-email>`,
 		});
 
