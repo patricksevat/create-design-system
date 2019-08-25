@@ -65,10 +65,28 @@ There are two ways to develop components with Stencil and Docz:
 [following the guidelines from the Stencil Docs](https://stenciljs.com/docs/unit-testing)
 
 ### End-to-end (e2e), visual, a11y
-For e2e, visual and accessibility visual tests we move away from the guidelines by Stencil and 
-utilize the [WebdriverIO](https://webdriver.io) (wdio) tooling. The main reason is that we are able to 
+For e2e, visual and accessibility visual tests we use utilize the [WebdriverIO](https://webdriver.io) (wdio) tooling
+  
+<details>
+    <summary>Why move away from Stencil e2e tests?</summary>
+    
+We move away from the guidelines by Stencil and utilize the [WebdriverIO](https://webdriver.io) (wdio) tooling. The main reason is that we are able to 
 share our setup for these tests and that Wdio is battle tested, where Stencil's Visual tests are experimental 
 and Stencil does not provide any A11y testing out of the box
+    
+</details>
+
+The generated configuration works out of the box using wdio v5 and related packages needed for testing
+on Chrome, including Visual Regression and Accessibility tests. However, Wdio does not stop there. browse 
+[their documentation](https://webdriver.io/docs/gettingstarted.html) to finetune it to your needs (more browsers, Browserstack, CI integration and much more)
+
+#### Running e2e tests
+
+#### Running a11y tests
+
+#### Running visual regression tests
+
+## Committing
 
 TODO
 

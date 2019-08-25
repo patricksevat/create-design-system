@@ -17,5 +17,8 @@ export const config: Config = {
   srcDir: './src',
   plugins: [
     sass(),
-  ]
+  ],
+  testing: {
+    testRegex: '/src/.*\\.unit.spec\\.(ts|tsx|js)$'
+  }
 };
