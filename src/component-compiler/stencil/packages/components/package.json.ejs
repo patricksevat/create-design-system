@@ -16,8 +16,9 @@
   "scripts": {
     "build": "stencil build --docs-json",
     "start": "stencil build --dev --watch --serve --docs-json docs/components.json",
+    "test:e2e": "wdio",
     "test": "stencil test --spec",
-    "test.watch": "stencil test --spec --watchAll",
+    "test:unit.watch": "stencil test --spec --watchAll",
     "pre-commit": "run-p lint test && lint-staged",
     "format": "prettier --write --config prettier.config.js \"src/**/*.{js,ts,tsx,html,scss,mdx,json}\" ",
     "lint": "run-p lint:*",
@@ -28,6 +29,19 @@
   "dependencies": {
     "@stencil/core": "^1.2.4",
     "@stencil/sass": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.4.0",
+    "@types/jest": "24.0.18",
+    "@wdio/cli": "^5.12.4",
+    "@wdio/jasmine-framework": "^5.12.1",
+    "@wdio/local-runner": "^5.10.1",
+    "@wdio/selenium-standalone-service": "^5.0.0",
+    "@wdio/spec-reporter": "^5.0.0",
+    "axe-core": "^3.3.0",
+    "jest": "24.8.0",
+    "jest-cli": "24.8.0",
+    "wdio-image-comparison-service": "^1.5.1"
   },
   "publishConfig": {
     "access": "public"

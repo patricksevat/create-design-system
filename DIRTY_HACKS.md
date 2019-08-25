@@ -1,3 +1,6 @@
+# Stencil related
+* Can't rename `test` script to `test:unit`, due to [#1609](https://github.com/ionic-team/stencil/issues/1609)
+
 # Docz related
 
 ### Not filty at all (just documenting change)
