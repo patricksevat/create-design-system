@@ -7,10 +7,10 @@ describe('input-email', () => {
 		let component, error, input;
 
 		beforeAll(async () => {
-			component = await browser.$('foo-input-email.hydrated');
+			component = await browser.$('<%= templateConfig.prefix %>-input-email.hydrated');
 			await component.waitForExist();
 
-			error = await component.shadow$('.foo-input-email__error');
+			error = await component.shadow$('.<%= templateConfig.prefix %>-input-email__error');
 			input = await component.shadow$('input');
 		});
 
@@ -27,6 +27,7 @@ describe('input-email', () => {
 			await input.click();
 			await browser.keys('John Doe');
 			await browser.keys(['Tab']);
+			await error.waitForExist();
 			expect(await error.isDisplayed()).toBe(true);
 		});
 
@@ -35,6 +36,7 @@ describe('input-email', () => {
 			await input.click();
 			await browser.keys('john@doe.com');
 			await browser.keys(['Tab']);
+			await error.waitForExist(5000, true);
 			expect(await error.isDisplayed()).toBe(false);
 		})
 	});
@@ -46,7 +48,7 @@ describe('input-email', () => {
 			component = await browser.$('#prefilled-invalid');
 			await component.waitForExist();
 
-			error = await component.shadow$('.foo-input-email__error');
+			error = await component.shadow$('.<%= templateConfig.prefix %>-input-email__error');
 			input = await component.shadow$('input');
 		});
 
@@ -56,6 +58,7 @@ describe('input-email', () => {
 			await input.click();
 			await browser.keys('john@doe.com');
 			await browser.keys(['Tab']);
+			await error.waitForExist(5000, true);
 			expect(await error.isDisplayed()).toBe(false);
 		});
 	})

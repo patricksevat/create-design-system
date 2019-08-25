@@ -1,5 +1,6 @@
 # Stencil related
 * Can't rename `test` script to `test:unit`, due to [#1609](https://github.com/ionic-team/stencil/issues/1609)
+* Nasty, including `@types/jasmine` clashes with Jest, fixed by requiring jest in types in wdio.conf.js. TODO research more: https://stackoverflow.com/questions/31322525/confusing-duplicate-identifier-typescript-error-message
 
 # Docz related
 
@@ -33,4 +34,3 @@ If you have any user generated content in your .mdx files, **YOU SHOULD NOT USE 
 
 This is needed to make sure we can use Stencil's Webcomponents in an iframe context (which has its own `window` context)
 
- 

@@ -4,8 +4,8 @@ exports.config = {
   runner: 'local',
   specs: [
     './src/**/*.e2e.spec.ts',
-    './src/**/*.visual.spec.ts',
-    './src/**/*.a11y.spec.ts',
+    // './src/**/*.visual.spec.ts',
+    // './src/**/*.a11y.spec.ts',
   ],
   exclude: [],
   maxInstances: 5,
@@ -64,7 +64,7 @@ exports.config = {
 					"*": [ "./*" ],
 					"src/*": ["./src/*"]
 				},
-				"types": ["node", "webdriverio", "@wdio/jasmine-framework", "jasmine"]
+				"types": ["node", "webdriverio", "@wdio/jasmine-framework", "jest"]
 			}
 		});
 	},
