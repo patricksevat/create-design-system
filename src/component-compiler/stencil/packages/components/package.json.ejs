@@ -16,6 +16,7 @@
   "scripts": {
     "build": "stencil build --docs-json",
     "start": "stencil build --dev --watch --serve --docs-json docs/components.json",
+    "serve": "lws --stack lws-static --port 8123",
     "test:e2e": "wdio",
     "test": "stencil test --spec",
     "test:unit.watch": "stencil test --spec --watchAll",
