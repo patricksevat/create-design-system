@@ -2,6 +2,9 @@
 * Can't rename `test` script to `test:unit`, due to [#1609](https://github.com/ionic-team/stencil/issues/1609)
 * Nasty, including `@types/jasmine` clashes with Jest, fixed by requiring jest in types in wdio.conf.js. TODO research more: https://stackoverflow.com/questions/31322525/confusing-duplicate-identifier-typescript-error-message
 
+# WDIO related
+* No TypeScript support yet for wdio-image-comparison-service so all visual.spec files are .js, not .ts
+
 # Docz related
 
 ### Not filty at all (just documenting change)
@@ -9,11 +12,10 @@
 * importing global styles in `portal/src/gatsby-browser.js`
 * Adding some lines to `portal/package.json` to make lerna monorepo play nicely with Docz. 
 [Now officially documented](https://www.docz.site/docs/usage-in-monorepo)
-* Adding a webpack plugin to reload gatsby on file changes in stencil dist folder TODO FIGURE OUT HOW TO SEND WEBSOCKET NOTIFICATION checout https://github.com/gatsbyjs/gatsby/blob/master/packages/gatsby/src/utils/webpack.config.js
 
 ### Eww, dude, that's nasty
 * Had to overwrite `"scheduler": "^0.15.0"` to `portal/package.json` (https://github.com/pedronauck/docz/issues/1000)
-* In order to get the HMR in docz working when stencil --dev updates the bundle I had to create an artificial import for all components in gatsby.browser.js (see createSymLink.ts.ejs)
+* In order to get the HMR in docz working when stencil --dev updates the bundle I had to create an artificial import for all components in gatsby.browser.js (see copyDist.ts.ejs)
 ❗ Only needed if you want to dev in portal, will increase bundle size (but not in prod)
 * All `packages/components/src/**.*.mdx` files need to reside in their own `docs` directory. 
 Is needed to create a symlink so HMR will work on .mdx files. I could not symlink the whole `packages/components/*/` directory

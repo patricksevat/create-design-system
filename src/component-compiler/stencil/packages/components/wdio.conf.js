@@ -4,7 +4,7 @@ exports.config = {
   runner: 'local',
   specs: [
     './src/**/*.e2e.spec.ts',
-    // './src/**/*.visual.spec.ts',
+    './src/**/*.visual.spec.ts',
     // './src/**/*.a11y.spec.ts',
   ],
   exclude: [],

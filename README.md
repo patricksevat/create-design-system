@@ -19,7 +19,6 @@
 * husky
 * prettier
 * cross-os / cross-env
-* wdio visual comparison
 * wdio a11y axe
 * Make Docz look nice
 * Create production build (strip dynamic imports!)
