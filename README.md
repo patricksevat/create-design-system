@@ -11,16 +11,6 @@
 |---|---|
 | Stencil / Docz / WDIO | [Documentation](/resources/stencil-docz-wdio.md)
 
-## Deploying
-
-### Docz
-
-https://www.docz.site/docs/deploying-your-docs
-
-### Stencil
-
-https://stenciljs.com/docs/distribution#using-your-component-in-a-framework
-
 # TODO
 
 * TSlint
@@ -29,7 +19,6 @@ https://stenciljs.com/docs/distribution#using-your-component-in-a-framework
 * husky
 * prettier
 * cross-os / cross-env
-* wdio
 * wdio visual comparison
 * wdio a11y axe
 * Make Docz look nice
