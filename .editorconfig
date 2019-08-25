@@ -10,7 +10,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 end_of_line = lf
 
-[{package.json,scsslint.yml}]
+[{package.json,*.yml}]
 indent_size = 2
 indent_style = space
 

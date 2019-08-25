@@ -23,7 +23,7 @@ async function cleanDestDirIfNecessary() {
       const stencilDir = dirEntries.find((dirEntry) => dirEntry.name === 'stencil');
       const isSymlink = stencilDir && stencilDir.isSymbolicLink();
 
-      if ((isSymlink && argv.build) || (!isSymlink && !argv.build)) {
+      if (argv.build || (!isSymlink && !argv.build)) {
         cleanDestDir = true;
       }
     }
@@ -45,10 +45,10 @@ async function createComponentImports() {
     }
 
     const files = await glob(`${src}/collection/**/*.js`);
-    const regex = /.*\/packages(?<capture>\/.*)/;
+    const regex = /.*\/packages(\/.*)/;
     const importStrings = files.map((filePath) => {
       const matches = filePath.match(regex);
-      return `import '@${NAME}${matches.groups.capture}';`;
+      return `import '@${NAME}${matches[1]}';`;
     });
 
     const gatsbyBrowserPath = 'gatsby-browser.js';
