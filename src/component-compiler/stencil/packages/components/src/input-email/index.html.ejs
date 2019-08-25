@@ -12,7 +12,16 @@
 </head>
 <body>
 
-<%- `<${templateConfig.prefix}-input-email>` %><%- `</${templateConfig.prefix}-input-email>` %>
+	<span>Empty</span>
+	<%- `<${templateConfig.prefix}-input-email id="default">`%><%- `</${templateConfig.prefix}-input-email>` %>
+
+	<span>Prefilled-invalid</span>
+	<%- `<${templateConfig.prefix}-input-email id="prefilled-invalid" value="foo">` %>
+	<%- `</${templateConfig.prefix}-input-email>` %>
+
+	<span>Prefilled-valid</span>
+	<%- `<${templateConfig.prefix}-input-email id="prefilled-invalid" value="john@doe.com">` %>
+	<%- `</${templateConfig.prefix}-input-email>` %>
 
 </body>
 </html>

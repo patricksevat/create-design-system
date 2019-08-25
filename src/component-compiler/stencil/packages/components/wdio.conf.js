@@ -4,8 +4,8 @@ exports.config = {
   runner: 'local',
   specs: [
     './src/**/*.e2e.spec.ts',
-    './src/**/*.visual.spec.ts',
-    './src/**/*.a11y.spec.ts',
+    // './src/**/*.visual.spec.ts',
+    // './src/**/*.a11y.spec.ts',
   ],
   exclude: [],
   maxInstances: 5,
@@ -22,7 +22,7 @@ exports.config = {
   logLevel: 'warn',
   bail: 0,
   deprecationWarnings: true,
-  baseUrl: 'http://localhost:8101',
+  baseUrl: 'http://localhost:3333',
   waitForTimeout: 10000,
   framework: 'jasmine',
   outputDir: './.tmp',
@@ -55,9 +55,17 @@ exports.config = {
     console.log('Saving screenshot as ' + filePath);
     browser.saveScreenshot(filePath);
   },
-  beforeSession() {
-    require('ts-node').register({
-      project: 'tsconfig.json',
-    });
-  },
+	before() {
+		require('ts-node').register({
+			files: true,
+			compilerOptions: {
+				"baseUrl": ".",
+				"paths": {
+					"*": [ "./*" ],
+					"src/*": ["./src/*"]
+				},
+				"types": ["node", "webdriverio", "@wdio/jasmine-framework", "jest"]
+			}
+		});
+	},
 }
