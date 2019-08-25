@@ -60,9 +60,10 @@ function asyncExec(cmd: string, opts: Record<any, any> = {}): Promise<string> {
   return new Promise((resolve, reject) => {
     const spawnedProcess = exec(`sh -c "${cmd}"`, opts,(err, stdout, stderr) => {
     	if (stderr) console.log(stderr);
+			console.log(stdout);
 
       if (err) reject(err);
-      resolve(stdout);
+      resolve();
     });
 
     if (opts.killMatcher) {
