@@ -35,6 +35,12 @@ async function executeTest() {
 		spinner.succeed().start('Running yarn test:e2e against yarn start in packages/components');
 		await parallelExec();
 
+		spinner.succeed().start('Running yarn install in portal folder');
+		await asyncExec('yarn', {
+			cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'portal')),
+			maxBuffer: 1024 * 1024 * 5
+		});
+
     spinner.succeed().start('Running yarn start in packages/portal');
     await asyncExec('yarn start', {
       cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'portal')),
