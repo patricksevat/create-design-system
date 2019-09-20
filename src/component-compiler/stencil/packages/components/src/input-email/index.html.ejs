@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-	<title>Stencil Component Starter</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
 
-	<script type="module" src="/dist/<%= templateConfig.name %>/<%= templateConfig.name %>.esm.js"></script>
-	<script nomodule src="/dist/<%= templateConfig.name %>.js"></script>
-	<link rel="stylesheet" type="text/css" href="/dist/<%= templateConfig.name %>/<%= templateConfig.name %>.css" />
+  <script type="module" src="/dist/<%= templateConfig.name %>/<%= templateConfig.name %>.esm.js"></script>
+  <script nomodule src="/dist/<%= templateConfig.name %>.js"></script>
+  <link rel="stylesheet" type="text/css" href="/dist/<%= templateConfig.name %>/<%= templateConfig.name %>.css" />
 
 </head>
 <body>
 
-	<span>Empty</span>
-	<%- `<${templateConfig.prefix}-input-email id="default">`%><%- `</${templateConfig.prefix}-input-email>` %>
+  <span>Empty</span>
+  <%- `<${templateConfig.prefix}-input-email id="default">`%><%- `</${templateConfig.prefix}-input-email>` %>
 
-	<span>Prefilled-invalid</span>
-	<%- `<${templateConfig.prefix}-input-email id="prefilled-invalid" value="foo">` %>
-	<%- `</${templateConfig.prefix}-input-email>` %>
+  <span>Prefilled-invalid</span>
+  <%- `<${templateConfig.prefix}-input-email id="prefilled-invalid" value="foo">` %>
+  <%- `</${templateConfig.prefix}-input-email>` %>
 
-	<span>Prefilled-valid</span>
-	<%- `<${templateConfig.prefix}-input-email id="prefilled-invalid" value="john@doe.com">` %>
-	<%- `</${templateConfig.prefix}-input-email>` %>
+  <span>Prefilled-valid</span>
+  <%- `<${templateConfig.prefix}-input-email id="prefilled-invalid" value="john@doe.com">` %>
+  <%- `</${templateConfig.prefix}-input-email>` %>
 
 </body>
 </html>

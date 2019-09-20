@@ -53,16 +53,16 @@ const SEO = ({ description, lang, meta, keywords, title: initialTitle }) => {
             : []
         )
         .concat(meta)}
-	>
-		<script
-			type="module"
-			src="/stencil/<%= templateConfig.name %>/<%= templateConfig.name %>.esm.js"
-		></script>
-		<script
-			noModule
-			src="/<%= templateConfig.name %>/foobaz.js"
-		></script>
-	</Helmet>
+  >
+    <script
+      type="module"
+      src="/stencil/<%= templateConfig.name %>/<%= templateConfig.name %>.esm.js"
+    ></script>
+    <script
+      noModule
+      src="/<%= templateConfig.name %>/foobaz.js"
+    ></script>
+  </Helmet>
   )
 }
 

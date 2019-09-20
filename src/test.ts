@@ -16,6 +16,12 @@ async function executeTest() {
       cwd: path.resolve(process.cwd(), path.join('tmp')),
     });
 
+    spinner.succeed().start('Creating git repo in tmp folder');
+    await asyncExec('git init', {
+      cwd: path.resolve(process.cwd(), path.join('tmp')),
+      maxBuffer: 1024 * 1024 * 5
+    });
+
     spinner.succeed().start('Running yarn install in tmp folder');
     await asyncExec('yarn', {
       cwd: path.resolve(process.cwd(), path.join('tmp')),
@@ -27,19 +33,19 @@ async function executeTest() {
       cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
     });
 
-		spinner.succeed().start('Running yarn test in packages/components');
-		await asyncExec('yarn test', {
-			cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
-		});
+    spinner.succeed().start('Running yarn test in packages/components');
+    await asyncExec('yarn test', {
+      cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
+    });
 
-		spinner.succeed().start('Running yarn test:e2e against yarn start in packages/components');
-		await parallelExec();
+    spinner.succeed().start('Running yarn test:e2e against yarn start in packages/components');
+    await runE2eTests();
 
-		spinner.succeed().start('Running yarn install in portal folder');
-		await asyncExec('yarn', {
-			cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'portal')),
-			maxBuffer: 1024 * 1024 * 5
-		});
+    spinner.succeed().start('Running yarn install in portal folder');
+    await asyncExec('yarn', {
+      cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'portal')),
+      maxBuffer: 1024 * 1024 * 5
+    });
 
     spinner.succeed().start('Running yarn start in packages/portal');
     await asyncExec('yarn start', {
@@ -51,6 +57,21 @@ async function executeTest() {
     await asyncExec('yarn build:portal', {
       cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'portal'))
     });
+
+    spinner.succeed().start('Checking dev tooling');
+    const dest = path.resolve(process.cwd(), path.join('tmp', 'packages', 'components', 'src', 'test.js'));
+    await fsExtra.writeFile(dest,
+      `const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eu magna accumsan, laoreet orci nec, bibendum dui. Curabitur iaculis et metus non fermentum. Vestibulum mollis purus lorem. Proin laoreet suscipit hendrerit.';`,
+      'utf-8');
+
+    await asyncExec( 'git add test.js', {
+      cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components', 'src'))
+    });
+
+    await asyncExec( 'git commit -m "feat(components): initial commit"', {
+      cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components', 'src'))
+    });
+
     spinner.succeed();
     spinner.stop();
   } catch(e) {
@@ -62,9 +83,9 @@ async function executeTest() {
 
 function asyncExec(cmd: string, opts: Record<any, any> = {}): Promise<any> {
   return new Promise((resolve, reject) => {
-    const spawnedProcess = exec(`sh -c "${cmd}"`, opts,(err, stdout, stderr) => {
-    	if (stderr) console.log(stderr);
-			console.log(stdout);
+    const spawnedProcess = exec(`sh -c '${cmd}'`, opts,(err, stdout, stderr) => {
+      if (stderr) console.log(stderr);
+      console.log(stdout);
 
       if (err) reject(err);
       resolve();
@@ -83,31 +104,31 @@ function asyncExec(cmd: string, opts: Record<any, any> = {}): Promise<any> {
     }
 
     if (opts.readyCb) {
-			spawnedProcess.stdout.on('data', (data) => {
-				if (opts.readyCb(data)) {
-					resolve(spawnedProcess);
-				}
-			});
-		}
+      spawnedProcess.stdout.on('data', (data) => {
+        if (opts.readyCb(data)) {
+          resolve(spawnedProcess);
+        }
+      });
+    }
   })
 }
 
-async function parallelExec() {
-	const startProcess = await asyncExec('yarn start', {
-		cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components')),
-		readyCb: (data) => data.includes('build finished, watching for changes')
-	});
+async function runE2eTests() {
+  const startProcess = await asyncExec('yarn start', {
+    cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components')),
+    readyCb: (data) => data.includes('build finished, watching for changes')
+  });
 
-	await asyncExec('yarn test:e2e', {
-		cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
-	});
+  await asyncExec('yarn test:e2e', {
+    cwd: path.resolve(process.cwd(), path.join('tmp', 'packages', 'components'))
+  });
 
-	startProcess.on('exit', () => {
-		console.log('killed yarn start components');
-		return;
-	});
+  startProcess.on('exit', () => {
+    console.log('killed yarn start components');
+    return;
+  });
 
-	startProcess.kill();
+  startProcess.kill();
 }
 
 executeTest()

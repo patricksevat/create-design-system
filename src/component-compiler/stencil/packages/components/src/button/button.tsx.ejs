@@ -1,18 +1,18 @@
 import { Component, h } from '@stencil/core';
 
 @Component({
-	shadow: true,
-	styleUrl: './button.scss',
-	tag: '<%= `${templateConfig.prefix}-button` %>',
+  shadow: true,
+  styleUrl: './button.scss',
+  tag: '<%= `${templateConfig.prefix}-button` %>',
 })
 export class <%= `${templateConfig.prefixPascalCase}Button` %> {
-	protected render() {
-		return (
-			<button
-				class='<%= `${templateConfig.prefix}-button` %>'
-			>
-				My Button
-			</button>
-		);
-	}
+  protected render() {
+    return (
+      <button
+        class="<%= `${templateConfig.prefix}-button` %>"
+      >
+        My Button
+      </button>
+    );
+  }
 }

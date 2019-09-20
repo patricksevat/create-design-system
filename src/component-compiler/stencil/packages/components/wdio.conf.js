@@ -55,17 +55,17 @@ exports.config = {
     console.log('Saving screenshot as ' + filePath);
     browser.saveScreenshot(filePath);
   },
-	before() {
-		require('ts-node').register({
-			files: true,
-			compilerOptions: {
-				"baseUrl": ".",
-				"paths": {
-					"*": [ "./*" ],
-					"src/*": ["./src/*"]
-				},
-				"types": ["node", "webdriverio", "@wdio/jasmine-framework", "jest"]
-			}
-		});
-	},
+  before() {
+    require('ts-node').register({
+      files: true,
+      compilerOptions: {
+        "baseUrl": ".",
+        "paths": {
+          "*": [ "./*" ],
+          "src/*": ["./src/*"]
+        },
+        "types": ["node", "webdriverio", "@wdio/jasmine-framework", "jest"]
+      }
+    });
+  },
 }
