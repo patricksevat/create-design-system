@@ -15,7 +15,7 @@
     "noUnusedParameters": true,
     "jsx": "react",
     "jsxFactory": "h",
-  	"rootDir": "./src"
+    "rootDir": "./src"
   },
   "include": [
     "src",

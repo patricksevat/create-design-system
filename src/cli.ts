@@ -51,25 +51,25 @@ async function prompt(): Promise<types.ICliOptions> {
   const { name, prefix } = yargs.argv;
 
   if (!name || !prefix) {
-		options.templateConfig = await enquirer.prompt([{
-			type: 'input',
-			name: 'name',
-			message: 'What\'s the package.json name of your project?',
-			format: changeCase.paramCase,
-			validate: checkValue,
-		}, {
-			type: 'input',
-			name: 'prefix',
-			message: 'Prefix / short name for your components. Will be used to prefix your Web Components: <foo-button>',
-			format: changeCase.paramCase,
-			validate: checkValue,
-		}]);
-	} else {
-  	options.templateConfig = { name, prefix };
-	}
+    options.templateConfig = await enquirer.prompt([{
+      type: 'input',
+      name: 'name',
+      message: 'What\'s the package.json name of your project?',
+      format: changeCase.paramCase,
+      validate: checkValue,
+    }, {
+      type: 'input',
+      name: 'prefix',
+      message: 'Prefix / short name for your components. Will be used to prefix your Web Components: <foo-button>',
+      format: changeCase.paramCase,
+      validate: checkValue,
+    }]);
+  } else {
+    options.templateConfig = { name, prefix };
+  }
 
 
-	options.templateConfig.prefixPascalCase = changeCase.pascalCase(options.templateConfig.prefix);
+  options.templateConfig.prefixPascalCase = changeCase.pascalCase(options.templateConfig.prefix);
 
   for (const key of Object.keys(aliases)) {
     const pascalKey = changeCase.pascalCase(key);

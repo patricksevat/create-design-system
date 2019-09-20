@@ -7,17 +7,12 @@
 2. Run this command and answers the prompts: `npx create-design-system-cli`
 3. Check the develop flow for your tools of choice
 
-| Tool combination | Resources | 
+| Tool combination | Resources |
 |---|---|
 | Stencil / Docz / WDIO | [Documentation](/resources/stencil-docz-wdio.md)
 
 # TODO
 
-* TSlint
-    * Stencil lint
-* editorconfig for src
-* husky
-* prettier
 * cross-os / cross-env
 * wdio a11y axe
 * Make Docz look nice

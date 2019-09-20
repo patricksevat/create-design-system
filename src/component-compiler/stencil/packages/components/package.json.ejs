@@ -19,8 +19,8 @@
     "test:e2e": "wdio",
     "test": "stencil test --spec",
     "test:unit.watch": "stencil test --spec --watchAll",
-    "pre-commit": "run-p lint test && lint-staged",
-    "format": "prettier --write --config prettier.config.js \"src/**/*.{js,ts,tsx,html,scss,mdx,json}\" ",
+    "pre-commit": "yarn lint && lint-staged",
+    "format": "prettier --write \"src/**/*.{js,ts,tsx,html,scss,mdx,json}\" ",
     "lint": "run-p lint:*",
     "lint:typescript": "tslint -c tslint.json -p tsconfig.json",
     "lint:editor": "cross-var eclint check $PWD/src/**/*.{ts,tsx}",
@@ -46,12 +46,10 @@
     "access": "public"
   },
   "lint-staged": {
-    "linters": {
-      "./src/**/*.{js,ts,tsx,html,scss,md,mdx}": [
-        "yarn format",
-        "git add"
-      ]
-    }
+    "./src/**/*.{js,ts,tsx,html,scss,md,mdx}": [
+      "yarn format",
+      "git add"
+    ]
   },
   "license": "MIT"
 }

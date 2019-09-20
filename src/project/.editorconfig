@@ -10,18 +10,6 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 end_of_line = lf
 
-[{package.json,scsslint.yml}]
-indent_size = 2
-indent_style = space
-
-[{.DS_Store,{dist,nexus,node_modules,styleguide,submodules}/**}]
-charset = ignore
-indent_size = ignore
-indent_style = ignore
-insert_final_newline = ignore
-tab_width = ignore
-trim_trailing_whitespace = ignore
-
 [*.d.ts]
 charset = unset
 indent_size = unset

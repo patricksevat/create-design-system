@@ -2,30 +2,30 @@ import { newSpecPage } from '@stencil/core/testing';
 import { <%= templateConfig.prefixPascalCase %>InputEmail } from '../input-email';
 
 describe('<%= templateConfig.prefix %>InputEmail functionality', () => {
-	it('should validate correctly', async () => {
-		const instance = new <%= templateConfig.prefixPascalCase %>InputEmail();
+  it('should validate correctly', async () => {
+    const instance = new <%= templateConfig.prefixPascalCase %>InputEmail();
 
-		instance.value = 'baz';
-		await instance.validate();
-		expect(instance.errorMsg).toBe('Email must contain @');
+    instance.value = 'baz';
+    instance.validate();
+    expect(instance.errorMsg).toBe('Email must contain @');
 
-		instance.value = 'foo@bar.baz';
-		await instance.validate();
-		expect(instance.errorMsg).toBe('');
-	});
+    instance.value = 'foo@bar.baz';
+    instance.validate();
+    expect(instance.errorMsg).toBe('');
+  });
 
-	it('should render the error only when there is an error', async () => {
-		const page = await newSpecPage({
-			components: [<%= templateConfig.prefixPascalCase %>InputEmail],
-			html: `<<%= templateConfig.prefix %>-input-email></<%= templateConfig.prefix %>-input-email>`,
-		});
+  it('should render the error only when there is an error', async () => {
+    const page = await newSpecPage({
+      components: [<%= templateConfig.prefixPascalCase %>InputEmail],
+      html: `<<%= templateConfig.prefix %>-input-email></<%= templateConfig.prefix %>-input-email>`,
+    });
 
-		let error = page.doc.querySelector('<%= templateConfig.prefix %>-input-email').shadowRoot.querySelector('.<%= templateConfig.prefix %>-input-email__error');
-		expect(error).toBe(null);
+    let error = page.doc.querySelector('<%= templateConfig.prefix %>-input-email').shadowRoot.querySelector('.<%= templateConfig.prefix %>-input-email__error');
+    expect(error).toBe(null);
 
-		await page.setContent('<<%= templateConfig.prefix %>-input-email value="foo"></<%= templateConfig.prefix %>-input-email>');
+    await page.setContent('<<%= templateConfig.prefix %>-input-email value="foo"></<%= templateConfig.prefix %>-input-email>');
 
-		error = page.doc.querySelector('<%= templateConfig.prefix %>-input-email').shadowRoot.querySelector('.<%= templateConfig.prefix %>-input-email__error');
-		expect(error).toBeTruthy();
-	})
-})
+    error = page.doc.querySelector('<%= templateConfig.prefix %>-input-email').shadowRoot.querySelector('.<%= templateConfig.prefix %>-input-email__error');
+    expect(error).toBeTruthy();
+  });
+});

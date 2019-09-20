@@ -1,19 +1,19 @@
-import { Component, h, Host, State, Prop, Watch } from '@stencil/core';
+import { Component, Host, Prop, State, Watch, h } from '@stencil/core';
 
 @Component({
   shadow: true,
   styleUrl: './input-email.scss',
   tag: '<%= templateConfig.prefix %>-input-email',
 })
-export class FooInputEmail {
+export class <%= templateConfig.prefixPascalCase %>InputEmail {
   @Prop()
-  value: string = '';
+  value = '';
 
   @Prop()
-  label: string = 'Email address';
+  label = 'Email address';
 
   @State()
-  errorMsg: string = '';
+  errorMsg = '';
 
   onChange(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -31,8 +31,8 @@ export class FooInputEmail {
   }
 
   componentDidLoad() {
-    if (this.value) {
-      this.validate()
+    if (Boolean(this.value)) {
+      this.validate();
     }
   }
 
@@ -40,18 +40,18 @@ export class FooInputEmail {
     return (
       <Host>
         <label>
-          <span class="foo-input-email__label">
+          <span class="<%= templateConfig.prefix %>-input-email__label">
               { this.label }
           </span>
         <input
-          class='foo-input-email'
+          class="<%= templateConfig.prefix %>-input-email"
           type="email"
           onChange={this.onChange.bind(this)}
         >
         </input>
         </label>
         {this.errorMsg &&
-        <span class="foo-input-email__error">
+        <span class="<%= templateConfig.prefix %>-input-email__error">
             { this.errorMsg }
         </span>}
       </Host>
