@@ -43,12 +43,12 @@ export class <%= templateConfig.prefixPascalCase %>InputEmail {
           <span class="<%= templateConfig.prefix %>-input-email__label">
               { this.label }
           </span>
-        <input
-          class="<%= templateConfig.prefix %>-input-email"
-          type="email"
-          onChange={this.onChange.bind(this)}
-        >
-        </input>
+          <input
+            class="<%= templateConfig.prefix %>-input-email"
+            type="email"
+            onChange={this.onChange.bind(this)}
+          >
+          </input>
         </label>
         {this.errorMsg &&
         <span class="<%= templateConfig.prefix %>-input-email__error">
