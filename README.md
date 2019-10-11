@@ -13,8 +13,11 @@
 
 # TODO
 
-* cross-os / cross-env
-* wdio a11y axe
 * Make Docz look nice
 * Create production build (strip dynamic imports!)
 * Create `packages/portal` `yarn start --no-sym-link` option
+* Update generated README
+    * How to run tests
+    * How to see your components
+    * How to see your components in docz
+* Add script that runs portal and stencil parallel

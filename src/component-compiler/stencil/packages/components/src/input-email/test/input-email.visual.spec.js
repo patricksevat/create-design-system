@@ -4,6 +4,8 @@ describe('input-email visual regression', () => {
   });
 
   it('should compare successful with a baseline', async () => {
-    await expect(await browser.checkScreen('input-email', { /* some options*/ })).toEqual(0);
+    // options: https://github.com/wswebcreation/wdio-image-comparison-service/blob/master/docs/OPTIONS.md#method-options
+    const options = {};
+    await expect(await browser.checkScreen('input-email', options)).toEqual(0);
   })
 })
