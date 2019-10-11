@@ -30,7 +30,7 @@
   "homepage": "https://github.com/patricksevat/create-design-system",
   "husky": {
     "hooks": {
-      "pre-commit": "yarn lint"
+      "pre-commit": "yarn lint && git add ./"
     }
   },
   "dependencies": {
