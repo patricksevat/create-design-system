@@ -1,5 +1,5 @@
 import React from 'react';
-import { Prop } from 'gatsby-theme-docz/src/components/Props'
+import StencilTable from './StencilTable';
 
 class StencilProps extends React.Component {
   constructor (props) {
@@ -45,34 +45,66 @@ class StencilProps extends React.Component {
 
   render() {
     if (this.state.error) {
-      return <div>error</div>
-    } else if (!this.state.data.props) {
-      return null;
+      return <div>{ this.state.error }</div>
     }
 
     return (
       <div>
-        { this.state.data.props.map((prop) =>
-          <Prop
-            propName={prop.name}
-            prop={convertProp(prop)}
-            getPropType={() => prop.type}
-            key={prop.name}
-          ></Prop>)
-        }
+        <h2>Props</h2>
+        <StencilTable props={this.state.data.props} columns={columns.props} tableType={'props'}/>
+        <br/>
+        <h2>Events</h2>
+        <StencilTable props={this.state.data.events} columns={columns.events} tableType={'events'}/>
+        <br/>
+        <h2>Methods</h2>
+        <StencilTable props={this.state.data.methods} columns={columns.methods} tableType={'methods'}/>
+        <br/>
+        <h2>Slots</h2>
+        <StencilTable props={this.state.data.slots} columns={columns.slots} tableType={'slots'}/>
+        <br/>
       </div>
-
     )
   }
 }
 
 export default StencilProps;
 
-function convertProp (prop) {
-  return {
-    ...prop,
-    defaultValue: {
-      value: prop.default
-    },
-  }
-}
+const columns = {
+  events: [{
+    name: 'event'
+  },{
+    name: 'detail'
+  },{
+    name: 'bubbles',
+    default: 'false',
+  }, {
+    name: 'cancelable',
+    default: 'false'
+  }, {
+    name: 'composed',
+    default: 'false'
+  }],
+  methods: [{
+    name: 'name'
+  },{
+    name: 'signature'
+  },{
+    name: 'parameters'
+  }],
+  props: [{
+    name: 'name'
+  },{
+    name: 'type'
+  },{
+    name: 'default'
+  }, {
+    name: 'mutable',
+    default: 'false'
+  }, {
+    name: 'required',
+    default: 'false'
+  }],
+  slots: [{
+    name: 'name'
+  }]
+};
