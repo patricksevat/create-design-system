@@ -1,7 +1,7 @@
 {
   "name": "create-design-system-cli",
   "description": "A CLI to set up a design system including documentation, testing and linting",
-  "version": "0.0.1-alpha.22",
+  "version": "0.0.1-alpha.23",
   "bin": {
     "create-design-system-cli": "bin/design-system"
   },
