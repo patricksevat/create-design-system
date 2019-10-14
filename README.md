@@ -14,6 +14,7 @@
 # TODO
 
 * Make Docz look nice
+    * Make Props table look nice
 * Create production build (strip dynamic imports!)
 * Create `packages/portal` `yarn start --no-sym-link` option
 * Update generated README
@@ -21,3 +22,4 @@
     * How to see your components
     * How to see your components in docz
 * Add script that runs portal and stencil parallel
+* Add GIFs to main README

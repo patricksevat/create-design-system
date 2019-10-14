@@ -9,9 +9,9 @@ export async function createSymlink(srcPath, destPath, type = 'dir') {
     if (!symLinkExists) {
       const symlinkType = argv.symlink || process.platform.startsWith('win') ? 'junction' : type;
       await ensureSymlink(srcPath, destPath, symlinkType);
-      console.log('Symlink created');
+      console.log(`Symlink created src: ${srcPath}, dest: ${destPath}`);
     } else {
-      console.log('Symlink already exists');
+      console.log(`Symlink already exists. src: ${srcPath}, dest: ${destPath}`);
     }
 
     return;

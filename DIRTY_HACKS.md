@@ -6,6 +6,8 @@
 * No TypeScript support yet for wdio-image-comparison-service so all visual.spec files are .js, not .ts
 
 # Docz related
+* [Component Shortcodes](https://www.docz.site/docs/gatsby-theme#adding-component-shortcodes) does not work as expected, 
+so copied over whole gatsby-theme-docz/src/components/index.js
 
 ### Not filty at all (just documenting change)
 * Had to modify `portal/src/gatsby-theme-docz/base/Seo.js` to add the Stencil `<script>`-tags

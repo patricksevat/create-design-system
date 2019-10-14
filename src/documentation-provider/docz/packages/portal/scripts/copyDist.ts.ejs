@@ -7,9 +7,11 @@ import { checkPathExists, copyDir, createSymlink } from './utils'
 
 const NAME = '<%= templateConfig.name %>';
 
-const src = path.resolve(process.cwd(), path.join('..', 'components', 'dist'));
+const componentsSrc = path.resolve(process.cwd(), path.join('..', 'components', 'dist'));
+const componentDocsSrc = path.resolve(process.cwd(), path.join('..', 'components', 'docs'));
 const staticDir = path.resolve(process.cwd(), path.join('.docz', 'static'));
 const dest = path.resolve(process.cwd(), path.join('.docz', 'static', 'stencil'));
+const componentDocsDest = path.resolve(process.cwd(), path.join('.docz', 'static', 'stencil-docs'));
 const srcTestFile = path.resolve(dest, path.join('<%= templateConfig.name %>.js'));
 
 
@@ -44,7 +46,7 @@ async function createComponentImports() {
       return;
     }
 
-    const files = await glob(`${src}/collection/**/!(*.visual.spec).js`);
+    const files = await glob(`${componentsSrc}/collection/**/!(*.visual.spec).js`);
     const regex = /.*\/packages(\/.*)/;
     const importStrings = files.map((filePath) => {
       const matches = filePath.match(regex);
@@ -68,10 +70,11 @@ async function createComponentImports() {
 cleanDestDirIfNecessary()
 .then(() => {
   if (argv.build) {
-    return copyDir(src, dest);
+    return copyDir(componentsSrc, dest);
   }
 
-  return createSymlink(src, dest);
+  return createSymlink(componentsSrc, dest);
 })
+.then(() => createSymlink(componentDocsSrc, componentDocsDest))
 .then(createComponentImports)
 .then(() => process.exit(0), () => process.exit(1));
