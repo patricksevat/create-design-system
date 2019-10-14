@@ -32,6 +32,7 @@ async function cleanDestDirIfNecessary() {
 
     if (cleanDestDir) {
       await remove(dest);
+      await remove(componentDocsDest);
     }
   } catch (e) {
     console.log(e);
@@ -75,6 +76,12 @@ cleanDestDirIfNecessary()
 
   return createSymlink(componentsSrc, dest);
 })
-.then(() => createSymlink(componentDocsSrc, componentDocsDest))
+.then(() => {
+  if (argv.build) {
+    return copyDir(componentDocsSrc, componentDocsDest);
+  }
+
+  return createSymlink(componentDocsSrc, componentDocsDest)
+})
 .then(createComponentImports)
 .then(() => process.exit(0), () => process.exit(1));
