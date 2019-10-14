@@ -1,13 +1,13 @@
 {
-	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"*": [ "./*" ],
-			"src/*": ["./src/*"]
-		},
-		"types": ["node", "webdriverio", "@wdio/jasmine-framework", "jest", "axe-core"]
-	},
-	"include": [
-		"./src/**/*.ts"
-	]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": [ "./*" ],
+      "src/*": ["./src/*"]
+    },
+    "types": ["node", "webdriverio", "@wdio/jasmine-framework", "jest", "axe-core"]
+  },
+  "include": [
+    "./src/**/*.ts"
+  ]
 }
