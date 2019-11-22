@@ -7,7 +7,8 @@
   },
   "scripts": {
     "clean": "rm -rf ./tmp",
-    "test": "ts-node src/test.ts",
+    "test": "ts-node src/test/docz-test.ts",
+    "test:storybook": "ts-node src/test/storybook-test.ts",
     "lint": "eclint fix \"./!(node_modules|tmp)/**/*\""
   },
   "publishConfig": {

@@ -19,7 +19,7 @@ export enum ComponentCompiler {
 
 export enum DocumentationProvider {
   docz = "docz",
-  // storybook = "storybook",
+  storybook = "storybook",
 }
 
 export enum TestingFramework {
