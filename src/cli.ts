@@ -56,12 +56,14 @@ async function prompt(): Promise<types.ICliOptions> {
       name: 'name',
       message: 'What\'s the package.json name of your project?',
       format: changeCase.paramCase,
+      result: changeCase.paramCase,
       validate: checkValue,
     }, {
       type: 'input',
       name: 'prefix',
       message: 'Prefix / short name for your components. Will be used to prefix your Web Components: <foo-button>',
       format: changeCase.paramCase,
+      result: changeCase.paramCase,
       validate: checkValue,
     }]);
   } else {
@@ -79,7 +81,7 @@ async function prompt(): Promise<types.ICliOptions> {
       const answer = await enquirer.prompt({
         type: 'select',
         name: key,
-        message: `Please pick a ${changeCase.noCase(key)}. In pre release choices are limited, sorry!`,
+        message: `Please pick a ${changeCase.noCase(key)}.`,
         choices: Object.values(types[pascalKey]) as string[],
       });
 

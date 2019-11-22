@@ -23,3 +23,10 @@
     * How to see your components in docz
 * Add script that runs portal and stencil parallel
 * Add GIFs to main README
+* check npx commnd (ts to js compilation maybe?)
+* reload docz on css changes
+* rename package to create-stencil-design-system
+* add gifs
+* add links to litElement, litHtml, openWC
+* build storybook dist
+* storybook HMR with Stencil updates

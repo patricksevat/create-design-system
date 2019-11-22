@@ -1,0 +1,14 @@
+export default {
+  title: 'Demo',
+};
+
+export const Button = () => {
+  const btn = document.createElement('<%= templateConfig.prefix %>-button');
+  return btn;
+};
+
+export const InputEmail = () => {
+  const input = document.createElement('<%= templateConfig.prefix %>-input-email');
+  input.value = 'foo@baz.bar';
+  return input;
+};

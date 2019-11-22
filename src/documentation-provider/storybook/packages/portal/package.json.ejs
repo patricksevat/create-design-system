@@ -1,0 +1,38 @@
+{
+  "name": "<%= `@${templateConfig.name}/portal`%>",
+  "version": "1.0.0",
+  "description": "<%= `@${templateConfig.name} design system portal`%>",
+  "files": [
+  ],
+  "scripts": {
+    "start": "yarn storybook",
+    "storybook": "start-storybook -p 6006 -s ../components/dist",
+    "build-storybook": "build-storybook"
+  },
+  "devDependencies": {
+    "<%= `@${templateConfig.name}/components` %>": "^1.0.0",
+    "lit-html": "^1.0.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.7.2",
+    "@storybook/web-components": "^5.3.0-beta.3",
+    "babel-loader": "^8.0.6"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "linters": {
+      "./src/**/*.{js,ts,tsx,html,scss,md,mdx}": [
+        "yarn format",
+        "git add"
+      ]
+    }
+  },
+  "license": "MIT",
+  "workspaces": [
+  "../../../packages/**/*",
+  "../../packages/**/*"
+  ],
+  "private": true
+}

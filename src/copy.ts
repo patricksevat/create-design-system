@@ -11,7 +11,6 @@ const globOptions = (compilerName, skipIgnore) => ({
   ignore: Object.keys(types.ComponentCompiler).reduce((accumulator, key) => {
     if (key !== compilerName && !skipIgnore) {
       accumulator.push(`${__dirname}/${key}/**/*`);
-      // accumulator.push(`${__dirname}/templates/${key}/**/*`);
     }
 
     return accumulator;
@@ -38,9 +37,9 @@ export async function copyFiles(options: types.ICliOptions, toolingType: string,
   }
 }
 
-function getFilePaths(options, toolingType, skipIgnore): Promise<string[]> {
+function getFilePaths(options: types.ICliOptions, toolingType, skipIgnore): Promise<string[]> {
   const toolingName = changeCase.camel(toolingType);
-  const globPattern = `${__dirname}/${toolingType}/**/*`;
+  const globPattern = `${__dirname}/${toolingType}/${ options[changeCase.camel(toolingType)] || '' }/**/*`;
   return glob(globPattern, globOptions(options[toolingName], skipIgnore));
 }
 
